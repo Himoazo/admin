@@ -1,0 +1,25 @@
+<header>
+    <h1 class="logo">Admin</h1>
+    <button class="menu-btn open" id="open-menu" (click)="toggleMenu()">
+        <span class="menu-icon">
+            <span class="bars"></span>
+            <span class="bars"></span>
+            <span class="bars"></span>
+        </span>
+        <span class="menu-text">Meny</span>
+    </button>
+    <nav id="nav-menu">
+        <button class="menu-btn close" id="close-menu" (click)="toggleMenu()">
+            <span class="menu-icon">
+                <span class="bars cross1"></span>
+                <span class="bars cross2"></span>
+            </span>
+            <span class="menu-text">Stäng</span>
+        </button>
+        <ul>
+            <li><a routerLink="/" routerLinkActive="active">Startsida</a></li>
+            <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+            <li><a routerLink="/login" routerLinkActive="active">login</a></li>
+        </ul>
+    </nav>
+  </header>
