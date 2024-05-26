@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { SignIn } from '../models/sign-in';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ import { SignIn } from '../models/sign-in';
 export class LoginComponent {
   username: string = "";
   password: string = "";
+  errorDiv: string = "";
 
   constructor(private authService: AuthService, private router: Router){
 
@@ -28,10 +30,11 @@ export class LoginComponent {
   login():void{
     this.authService.login(this.username, this.password).subscribe({
       next: (response: SignIn) =>{
-        console.log(response);
+        localStorage.setItem("token", JSON.stringify(response));
+        this.router.navigate(["/admin"])
       },
       error: (error)=>{
-        console.log(error);
+        this.errorDiv = "Felaktigt användarnamn/lösenord";
       }
     });
   }
