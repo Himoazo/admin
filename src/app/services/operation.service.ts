@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Orders } from '../models/orders';
 import { Meal } from '../models/meal';
+import { Side } from '../models/side';
+import { Dipp } from '../models/dipp';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,25 @@ export class OperationService {
     const token = localStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
 
-    return this.http.post<Meal>(this.url + "meals", meal, {headers})
+    return this.http.post<Meal>(this.url + "meals", meal, {headers});
   }
+
+  //add Sides
+  addSide(side: Side) :Observable<Side>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+  return this.http.post<Side>(this.url + "sides", side, {headers});
+  }
+
+  //add Dipps
+  addDipps(dipp: Dipp) :Observable<Dipp>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+  return this.http.post<Dipp>(this.url + "dipps", dipp, {headers});
+  }
+
 }

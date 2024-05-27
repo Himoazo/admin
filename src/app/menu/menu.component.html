@@ -1,11 +1,12 @@
 <h2>Meny</h2>
 
-<form [formGroup]="hamburgerForm" (ngSubmit)="addMeal">
+<!-- hamburgerForm -->
+<form [formGroup]="hamburgerForm" (ngSubmit)="mealCheck()">
     @if(formError){
         <p class="errorSpan"> {{formError}} </p>
     }
     <div>
-        <label for="name">Name:</label>
+        <label for="name">Namn:</label>
         <span class="errorSpan" *ngIf="hamburgerForm.controls['name'].invalid && hamburgerForm.controls['name'].touched">Fyll i namnet</span>
         <input type="text" id="name" name="name" formControlName="name">
       </div>
@@ -28,7 +29,57 @@
         <input type="number" id="doublePrice" name="doublePrice" formControlName="doublePrice">
       </div>
       <div>
-        <button (click)="mealCheck()" mat-flat-button color="primary">Lägg till</button>
+        <button mat-flat-button color="primary">Lägg till</button>
       </div>
 </form>
 
+<!-- sides form -->
+<br>
+<form [formGroup]="sideForm" (ngSubmit)="sideCheck()">
+  @if(sidesError){
+      <p class="errorSpan"> {{sidesError}} </p>
+  }
+  <div>
+      <label for="name">Namn:</label>
+      <span class="errorSpan" *ngIf="sideForm.controls['name'].invalid && sideForm.controls['name'].touched">Fyll i namnet</span>
+      <input type="text" id="name" name="name" formControlName="name">
+  </div>
+    
+  <div>
+      <label for="smallPrice">Pris (Liten):</label>
+      <span class="errorSpan" *ngIf="sideForm.controls['smallPrice'].invalid && sideForm.controls['smallPrice'].touched">Fyll i priset</span>
+      <input type="number" id="smallPrice" name="smallPrice" formControlName="smallPrice">
+  </div>
+    
+  <div>
+      <label for="bigPrice">Pris (Stor):</label>
+      <span class="errorSpan" *ngIf="sideForm.controls['bigPrice'].invalid && sideForm.controls['bigPrice'].touched">Fyll i priset</span>
+      <input type="number" id="bigPrice" name="bigPrice" formControlName="bigPrice">
+  </div>
+  
+  <div>
+      <button mat-flat-button color="primary">Lägg till</button>
+  </div>
+</form>
+
+<!-- dipps form -->
+<br>
+<form [formGroup]="dippForm" (ngSubmit)="addDipp()">
+  @if(dippsError){
+    <p class="errorSpan"> {{dippsError}} </p>
+}
+<div>
+  <label for="name">Namn:</label>
+  <span class="errorSpan" *ngIf="dippForm.controls['name'].invalid && dippForm.controls['name'].touched">Fyll i namnet</span>
+  <input type="text" id="name" name="name" formControlName="name">
+</div>
+
+<div>
+  <label for="price">Pris:</label>
+  <span class="errorSpan" *ngIf="dippForm.controls['price'].invalid && dippForm.controls['price'].touched">Fyll i priset</span>
+  <input type="number" id="price" name="price" formControlName="price">
+</div>
+<div>
+  <button mat-flat-button color="primary">Lägg till</button>
+</div>
+</form>
