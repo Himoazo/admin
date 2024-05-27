@@ -3,10 +3,14 @@ import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { authGuard } from './services/auth.guard';
+import { MenuComponent } from './menu/menu.component';
 
 export const routes: Routes = [
     {path: "", component: HomeComponent },
-    {path: "admin", component: AdminComponent, canActivate: [authGuard]},
+    {path: "admin", component: AdminComponent, canActivate: [authGuard],
+    children: [
+        { path: "menu", component: MenuComponent, canActivate: [authGuard] }
+    ]},
     {path: "login", component: LoginComponent},
     {path: "**", redirectTo: ""}
 ];

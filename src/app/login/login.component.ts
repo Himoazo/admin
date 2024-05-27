@@ -30,7 +30,8 @@ export class LoginComponent {
   login():void{
     this.authService.login(this.username, this.password).subscribe({
       next: (response: SignIn) =>{
-        localStorage.setItem("token", JSON.stringify(response));
+        if(typeof response === "string")
+        localStorage.setItem("token", response);
         this.router.navigate(["/admin"])
       },
       error: (error)=>{
