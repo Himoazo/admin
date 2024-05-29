@@ -1,2 +1,8 @@
-<router-outlet />
 
+<button mat-button [matMenuTriggerFor]="menu"><mat-icon>dashboard</mat-icon> Dashboard</button>
+<mat-menu #menu="matMenu">
+    <button routerLink="/admin/menu" mat-menu-item>Mat Meny</button>
+    <button routerLink="/admin/orders" mat-menu-item>Ordrar</button>
+  </mat-menu>
+
+<router-outlet />  

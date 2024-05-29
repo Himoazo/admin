@@ -10,11 +10,16 @@ import {Side, Hamburger, Menu, Dipp } from '../models/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatButton, ReactiveFormsModule, CommonModule, MatExpansionModule, MatTabsModule],
+  imports: [MatButton, ReactiveFormsModule, CommonModule, MatExpansionModule, MatTabsModule, MatMenuModule, 
+    MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
