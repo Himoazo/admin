@@ -1,4 +1,4 @@
-export interface Side {
+export interface Sides {
     name: string;
     prices:{
         small: number;

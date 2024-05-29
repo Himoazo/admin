@@ -4,15 +4,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButton } from '@angular/material/button';
 import { OperationService } from '../services/operation.service';
 import { Meal } from '../models/meal';
-import { Side } from '../models/side';
-import { Dipp } from '../models/dipp';
-import { Hamburger, Menu } from '../models/menu';
+import { Sides } from '../models/side';
+import { Dipps } from '../models/dipp';
+import {Side, Hamburger, Menu, Dipp } from '../models/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatButton, ReactiveFormsModule, CommonModule, MatExpansionModule],
+  imports: [MatButton, ReactiveFormsModule, CommonModule, MatExpansionModule, MatTabsModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -56,7 +57,7 @@ export class MenuComponent {
         };
         
        }else{
-        this.formError = "Felaktigt värde i formen"
+        this.formError = "Felaktigt värde i formen";
        }
        if(alternative === true){
           this.addMeal(this.newMeal);
@@ -89,30 +90,38 @@ export class MenuComponent {
       });
 
       //SideForm data control
-      sideCheck() :void{
+      newSide!: Sides;
+      sideCheck(alternative: boolean) :void{
         const sideData = this.sideForm.value;
-        if(this.sideForm.valid && typeof sideData.name === "string" && typeof sideData.smallPrice === "number"
-          && typeof sideData.bigPrice === "number"){
-            const newSide = {
+        const smallPriceNum = Number(sideData.smallPrice);
+        const bigPriceNum =  Number(sideData.bigPrice);
+        if(this.sideForm.valid && typeof sideData.name === "string" && typeof smallPriceNum === "number"
+          && typeof bigPriceNum === "number"){
+             this.newSide = {
               name: sideData.name,
               prices:{
-                small: sideData.smallPrice,
-                big: sideData.bigPrice
+                small: smallPriceNum,
+                big: bigPriceNum
               }
             };
-            this.addSide(newSide);
           }else{
-
+            this.sidesError = "Felaktigt värde i formen";
           }
+          if(alternative === true){
+            this.addSide(this.newSide);
+         }else if(alternative === false){
+            this.editSide(this.newSide);
+         }
       }
 
       //add new side
       sidesError: string = "";
-      addSide(newSide: Side) :void{
+      addSide(newSide: Sides) :void{
         this.operation.addSide(newSide as Side).subscribe({
           next: () => {
             this.sideForm.reset();
             this.sidesError = "";
+            this.fetchMenu();
           },
           error: (error)=>{
             this.sidesError = error.message;
@@ -124,7 +133,7 @@ export class MenuComponent {
       //Dipps form
       dippForm = new FormGroup({
         name: new FormControl("", Validators.required),
-        price: new FormControl("", Validators.required)
+        price: new FormControl("", [Validators.required, Validators.min(0), Validators.max(999)])
         });
 
        //Add dipps
@@ -137,6 +146,7 @@ export class MenuComponent {
               next: ()=>{
                 this.dippForm.reset();
                 this.dippsError = "";
+                this.fetchMenu();
               },
               error: (error)=>{
                 this.dippsError = error.message;
@@ -151,10 +161,12 @@ export class MenuComponent {
         //Open edit form
         itemToedit: number | null = null;
         itemId: string = "";
+
         edit(index: number, meal:Hamburger):void{
           this.itemToedit = index;
           this.itemId = meal._id;
 
+          //Add existing values to edit form
           const singlePriceString = meal.prices.Singel.toString();
           const doublePriceString = meal.prices.Double.toString();
           this.hamburgerForm.patchValue({
@@ -168,6 +180,8 @@ export class MenuComponent {
         //Close edit form
         close() :void{
           this.itemToedit = null;
+          this.sidesToedit = null;
+          this.dippToedit = null;
         }
 
         //Edit meal
@@ -175,7 +189,6 @@ export class MenuComponent {
 
           this.operation.editMeal(newMeal as Meal, this.itemId).subscribe({
             next: ()=>{
-              this.itemToedit = null;
               this.formError = "";
               this.fetchMenu();
             },
@@ -184,5 +197,72 @@ export class MenuComponent {
             }
             
           });
+        }
+
+        //Sides editing
+        sidesToedit: number | null = null;
+        sidesId: string = "";
+        sideEditbtn(index: number, side:Side):void{
+          this.sidesToedit = index;
+          this.sidesId = side._id;
+
+          //Add existing values to edit form
+          const smallPriceString = side.prices.small.toString();
+          const bigPricesStrong = side.prices.big.toString();
+
+          this.sideForm.patchValue({
+            name: side.name,
+            smallPrice: smallPriceString,
+            bigPrice: bigPricesStrong
+            });
+        }
+
+        //Edit Side
+        editSide(newSide: Sides):void{
+          this.operation.editSide(newSide as Sides, this.sidesId).subscribe({
+            next: ()=>{
+              this.sidesError = "";
+              this.fetchMenu();
+            },
+            error: (error)=>{
+              this.sidesError = error.message;
+              console.log(error);
+            }
+          });
+        }
+
+        //Dipp editing
+        dippToedit: number | null = null;
+        dippId: string = "";
+        dippEditBtn(index: number, dipp: Dipp):void{
+          this.dippToedit = index;
+          this.dippId = dipp._id;
+
+          //Add existing values to edit form
+          const priceString = dipp.price.toString();
+          
+          this.dippForm.patchValue({
+            name: dipp.name,
+            price: priceString,
+            });
+        }
+
+        //Edit Dipp
+        editDipp():void{
+          if(!this.dippForm.valid){
+            this.dippsError = "fyll i alla fält";
+          }else{
+            this.operation.editDipp(this.dippForm.value as unknown as Dipp, this.dippId).subscribe({
+            next: ()=>{            
+              this.dippsError = "";
+              this.fetchMenu();
+            },
+            error: (error)=>{
+              this.dippsError = error.message;
+              console.log(error);
+            }
+          });
+          }
+          
         }
 }

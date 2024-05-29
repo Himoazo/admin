@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Orders } from '../models/orders';
 import { Meal } from '../models/meal';
-import { Side } from '../models/side';
-import { Dipp } from '../models/dipp';
-import { Menu } from '../models/menu';
+import { Sides } from '../models/side';
+import { Dipps } from '../models/dipp';
+import { Dipp, Menu } from '../models/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -50,21 +50,21 @@ export class OperationService {
   }
 
   //add Sides
-  addSide(side: Side) :Observable<Side>{
+  addSide(side: Sides) :Observable<Sides>{
     //Get token
     const token = localStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
 
-  return this.http.post<Side>(this.url + "sides", side, {headers});
+  return this.http.post<Sides>(this.url + "sides", side, {headers});
   }
 
   //add Dipps
-  addDipps(dipp: Dipp) :Observable<Dipp>{
+  addDipps(dipp: Dipps) :Observable<Dipps>{
     //Get token
     const token = localStorage.getItem("token");
     const headers = {Authorization: "Bearer " + token};
 
-  return this.http.post<Dipp>(this.url + "dipps", dipp, {headers});
+  return this.http.post<Dipps>(this.url + "dipps", dipp, {headers});
   }
 
   /* PUT method */
@@ -78,4 +78,22 @@ export class OperationService {
     return this.http.put<Meal>(this.url + "meals/" + id, meal, {headers});
   }
 
+  //Edit side
+  editSide(side: Sides, id: string) :Observable<Sides>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.put<Sides>(this.url + "sides/" + id, side, {headers});
+
+  }
+
+  //Edit Dipp
+  editDipp(dipp:Dipps, id:string) :Observable<Dipp>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+    
+    return this.http.put<Dipp>(this.url + "dipps/" + id, dipp, {headers});
+  }
 }
