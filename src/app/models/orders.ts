@@ -5,6 +5,7 @@ export interface Orders {
       };
       items: {
         menuItem: string;
+        itemName: string;
         itemType: 'meal' | 'side' | 'dipp';
         quantity: number;
         price: number;
