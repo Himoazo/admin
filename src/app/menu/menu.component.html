@@ -1,69 +1,97 @@
-<h2>Meny</h2>
 
-<!-- hamburgerForm -->
-<form [formGroup]="hamburgerForm" (ngSubmit)="mealCheck()">
-    @if(formError){
-        <p class="errorSpan"> {{formError}} </p>
-    }
-    <div>
-        <label for="name">Namn:</label>
-        <span class="errorSpan" *ngIf="hamburgerForm.controls['name'].invalid && hamburgerForm.controls['name'].touched">Fyll i namnet</span>
-        <input type="text" id="name" name="name" formControlName="name">
-      </div>
-      
+<div class="accordion">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Hamburgare/huvudrätter
+      </mat-panel-title>
+      <mat-panel-description>
+        Lägg till Hamburgare/huvudrätter
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- hamburgerForm -->
+    <form [formGroup]="hamburgerForm" (ngSubmit)="mealCheck(true)">
+      @if(formError){
+          <p class="errorSpan"> {{formError}} </p>
+      }
       <div>
-        <label for="ingredients">Ingredienser/beskrivning:</label>
-        <span class="errorSpan" *ngIf="hamburgerForm.controls['ingredients'].invalid && hamburgerForm.controls['ingredients'].touched">Fyll i fältet</span>
-        <input type="text" id="ingredients" name="ingredients" formControlName="ingredients">
-      </div>
-      
-      <div>
-        <label for="singlePrice">Pris (Singel):</label>
-        <span class="errorSpan" *ngIf="hamburgerForm.controls['singlePrice'].invalid && hamburgerForm.controls['singlePrice'].touched">Fyll i pris</span>
-        <input type="number" id="singlePrice" name="singlePrice" formControlName="singlePrice">
-      </div>
-      
-      <div>
-        <label for="doublePrice">Pris (Dubbel):</label>
-        <span class="errorSpan" *ngIf="hamburgerForm.controls['doublePrice'].invalid && hamburgerForm.controls['doublePrice'].touched">Fyll i pris</span>
-        <input type="number" id="doublePrice" name="doublePrice" formControlName="doublePrice">
-      </div>
-      <div>
-        <button mat-flat-button color="primary">Lägg till</button>
-      </div>
-</form>
-
-<!-- sides form -->
-<br>
-<form [formGroup]="sideForm" (ngSubmit)="sideCheck()">
-  @if(sidesError){
-      <p class="errorSpan"> {{sidesError}} </p>
-  }
-  <div>
-      <label for="name">Namn:</label>
-      <span class="errorSpan" *ngIf="sideForm.controls['name'].invalid && sideForm.controls['name'].touched">Fyll i namnet</span>
-      <input type="text" id="name" name="name" formControlName="name">
-  </div>
-    
-  <div>
-      <label for="smallPrice">Pris (Liten):</label>
-      <span class="errorSpan" *ngIf="sideForm.controls['smallPrice'].invalid && sideForm.controls['smallPrice'].touched">Fyll i priset</span>
-      <input type="number" id="smallPrice" name="smallPrice" formControlName="smallPrice">
-  </div>
-    
-  <div>
-      <label for="bigPrice">Pris (Stor):</label>
-      <span class="errorSpan" *ngIf="sideForm.controls['bigPrice'].invalid && sideForm.controls['bigPrice'].touched">Fyll i priset</span>
-      <input type="number" id="bigPrice" name="bigPrice" formControlName="bigPrice">
-  </div>
+          <label for="name">Namn:</label>
+          <span class="errorSpan" *ngIf="hamburgerForm.controls['name'].invalid && hamburgerForm.controls['name'].touched">Fyll i namnet</span>
+          <input type="text" id="name" name="name" formControlName="name">
+        </div>
+        
+        <div>
+          <label for="ingredients">Ingredienser/beskrivning:</label>
+          <span class="errorSpan" *ngIf="hamburgerForm.controls['ingredients'].invalid && hamburgerForm.controls['ingredients'].touched">Fyll i fältet</span>
+          <textarea type="text" id="ingredients" name="ingredients" formControlName="ingredients"></textarea>
+        </div>
+        
+        <div>
+          <label for="singlePrice">Pris (Singel):</label>
+          <span class="errorSpan" *ngIf="hamburgerForm.controls['singlePrice'].invalid && hamburgerForm.controls['singlePrice'].touched">Fyll i pris</span>
+          <input type="number" id="singlePrice" name="singlePrice" formControlName="singlePrice">
+        </div>
+        
+        <div>
+          <label for="doublePrice">Pris (Dubbel):</label>
+          <span class="errorSpan" *ngIf="hamburgerForm.controls['doublePrice'].invalid && hamburgerForm.controls['doublePrice'].touched">Fyll i pris</span>
+          <input type="number" id="doublePrice" name="doublePrice" formControlName="doublePrice">
+        </div>
+        <div>
+          <button mat-flat-button color="primary">Lägg till</button>
+        </div>
+  </form>
+  </mat-expansion-panel>
   
-  <div>
-      <button mat-flat-button color="primary">Lägg till</button>
-  </div>
-</form>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Sidorätter
+      </mat-panel-title>
+      <mat-panel-description>
+        lägg till sidorätter 
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- sides form -->
+    <form [formGroup]="sideForm" (ngSubmit)="sideCheck()">
+      @if(sidesError){
+          <p class="errorSpan"> {{sidesError}} </p>
+      }
+      <div>
+          <label for="name">Namn:</label>
+          <span class="errorSpan" *ngIf="sideForm.controls['name'].invalid && sideForm.controls['name'].touched">Fyll i namnet</span>
+          <input type="text" id="name" name="name" formControlName="name">
+      </div>
+        
+      <div>
+          <label for="smallPrice">Pris (Liten):</label>
+          <span class="errorSpan" *ngIf="sideForm.controls['smallPrice'].invalid && sideForm.controls['smallPrice'].touched">Fyll i priset</span>
+          <input type="number" id="smallPrice" name="smallPrice" formControlName="smallPrice">
+      </div>
+        
+      <div>
+          <label for="bigPrice">Pris (Stor):</label>
+          <span class="errorSpan" *ngIf="sideForm.controls['bigPrice'].invalid && sideForm.controls['bigPrice'].touched">Fyll i priset</span>
+          <input type="number" id="bigPrice" name="bigPrice" formControlName="bigPrice">
+      </div>
+      
+      <div>
+          <button mat-flat-button color="primary">Lägg till</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
 
-<!-- dipps form -->
-<br>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Dipps/såser
+      </mat-panel-title>
+      <mat-panel-description>
+        lägg till dipps. 
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- dipps form -->
 <form [formGroup]="dippForm" (ngSubmit)="addDipp()">
   @if(dippsError){
     <p class="errorSpan"> {{dippsError}} </p>
@@ -83,3 +111,75 @@
   <button mat-flat-button color="primary">Lägg till</button>
 </div>
 </form>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
+
+<!-- Meals in db -->
+<div class="mealListContainer">
+<ul *ngFor="let meal of menu.meals; index as i" class="mealList">
+  <li class="mealItem">
+    <div class="mealField">
+      <span class="mealTitle">ID:</span> 
+      <span class="mealData">{{ meal._id }}</span>
+    </div>
+    <div class="mealField">
+      <span class="mealTitle">Name:</span> 
+      <span class="mealData">{{ meal.name }}</span>
+    </div>
+    <div class="mealField">
+      <span class="mealTitle">Ingredients:</span> 
+      <span class="mealData">{{ meal.ingredients }}</span>
+    </div>
+    <div class="mealField">
+      <span class="mealTitle">Single Price:</span> 
+      <span class="mealData">{{ meal.prices.Singel }}</span>
+    </div>
+    <div class="mealField">
+      <span class="mealTitle">Double Price:</span> 
+      <span class="mealData">{{ meal.prices.Double }}</span>
+    </div>
+    <div class="mealField">
+      <span class="mealTitle">Created:</span> 
+      <span class="mealData">{{ meal.created }}</span>
+    </div>
+    <button mat-flat-button color="primary" (click)="edit(i, meal)">Edit</button>
+    <div *ngIf="itemToedit === i">
+      <button mat-stroked-button color="warn" (click)=" close()">Stäng</button>
+      <form [formGroup]="hamburgerForm" (ngSubmit)="mealCheck(false)">
+        @if(formError){
+            <p class="errorSpan"> {{formError}} </p>
+        }
+        <div>
+            <label for="name">Namn:</label>
+            <span class="errorSpan" *ngIf="hamburgerForm.controls['name'].invalid && hamburgerForm.controls['name'].touched">Fyll i namnet</span>
+            <input type="text" id="name" name="name" formControlName="name">
+          </div>
+          
+          <div>
+            <label for="ingredients">Ingredienser/beskrivning:</label>
+            <span class="errorSpan" *ngIf="hamburgerForm.controls['ingredients'].invalid && hamburgerForm.controls['ingredients'].touched">Fyll i fältet</span>
+            <textarea type="text" id="ingredients" name="ingredients" formControlName="ingredients"></textarea>
+          </div>
+          
+          <div>
+            <label for="singlePrice">Pris (Singel):</label>
+            <span class="errorSpan" *ngIf="hamburgerForm.controls['singlePrice'].invalid && hamburgerForm.controls['singlePrice'].touched">Fyll i pris</span>
+            <input type="number" id="singlePrice" name="singlePrice" formControlName="singlePrice">
+          </div>
+          
+          <div>
+            <label for="doublePrice">Pris (Dubbel):</label>
+            <span class="errorSpan" *ngIf="hamburgerForm.controls['doublePrice'].invalid && hamburgerForm.controls['doublePrice'].touched">Fyll i pris</span>
+            <input type="number" id="doublePrice" name="doublePrice" formControlName="doublePrice">
+          </div>
+          <div>
+            <button mat-flat-button color="primary">Redigera</button>
+            
+          </div>
+    </form>
+    </div>
+  </li>
+</ul>
+</div>
+

@@ -1,3 +1,75 @@
+form{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+input, label {
+    display:block;
+}
 .errorSpan{
     color: tomato;
 }
+
+.accordion{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+/* Meal List */
+.mealListContainer{
+    width: fit-content;
+    max-width: 90vw;
+    margin: 2% auto;
+}
+.mealList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    min-width: 35vw;
+    span{
+        width: 30ch;
+    }
+  }
+  
+  .mealItem {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .mealField {
+    /* display: flex; */
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  
+  .mealTitle {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+  }
+  
+  .mealData {
+    color: #666;
+  }
+  
+  .mealField:nth-child(even) {
+    background-color: #e2e2e2;
+  }
+  .mealField:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .mealItem:hover {
+    background-color: #e2e2e2;
+    border-color: #ccc;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .mealList{
+        min-width: 100%;
+    }
+  }

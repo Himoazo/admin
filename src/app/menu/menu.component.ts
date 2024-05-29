@@ -6,42 +6,62 @@ import { OperationService } from '../services/operation.service';
 import { Meal } from '../models/meal';
 import { Side } from '../models/side';
 import { Dipp } from '../models/dipp';
+import { Hamburger, Menu } from '../models/menu';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatButton, ReactiveFormsModule, CommonModule],
+  imports: [MatButton, ReactiveFormsModule, CommonModule, MatExpansionModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
     constructor(private operation: OperationService){}
+    menu: Menu = { meals: [], sides: [], dipps: [] };
+    ngOnInit(){
+      this.fetchMenu();
+    }
 
+    //Fetch menu
+    fetchMenu():void{
+      this.operation.getMeals().subscribe(data =>{
+        this.menu = data;
+      });
+    }
     //Hamburger form
     hamburgerForm = new FormGroup({
     name: new FormControl("", Validators.required),
     ingredients: new FormControl("", Validators.required),
-    singlePrice: new FormControl("", Validators.required),
-    doublePrice: new FormControl("", Validators.required)
+    singlePrice: new FormControl("", [Validators.required, Validators.min(0), Validators.max(999)]),
+    doublePrice: new FormControl("", [Validators.required, Validators.min(0), Validators.max(999)])
     });
 
     //Hamburger form data contrl
-    mealCheck() :void{
+    newMeal!: Meal;
+    mealCheck(alternative: boolean) :void{
       const formData = this.hamburgerForm.value;
+      const singlePrice = Number(formData.singlePrice); 
+      const doublePrice = Number(formData.doublePrice);
       if (this.hamburgerForm.valid && typeof formData.name === "string" && typeof formData.ingredients=== "string"
-        && typeof formData.singlePrice === "number" && typeof formData.doublePrice === "number"
+        && typeof singlePrice === "number" && typeof doublePrice === "number"
        ){
-        const newMeal = {
+        this.newMeal = {
         name: formData.name,
         ingredients: formData.ingredients,
         prices: {
-          Singel: formData.singlePrice,
-          Double: formData.doublePrice
+          Singel: singlePrice,
+          Double: doublePrice
         }
         };
-        this.addMeal(newMeal);
+        
        }else{
         this.formError = "Felaktigt värde i formen"
+       }
+       if(alternative === true){
+          this.addMeal(this.newMeal);
+       }else if(alternative === false){
+          this.editMeal(this.newMeal);
        }
     }
     
@@ -52,9 +72,10 @@ export class MenuComponent {
         next: ()=> {
           this.hamburgerForm.reset();
           this.formError = "";
+          this.fetchMenu();
         },
         error: (error) =>{
-          this.formError = error;
+          this.formError = "Något gick fel";
           console.log(error);
         }
       });
@@ -124,5 +145,44 @@ export class MenuComponent {
           }
           
         }
-       
+    
+        /* Edit items in db*/
+
+        //Open edit form
+        itemToedit: number | null = null;
+        itemId: string = "";
+        edit(index: number, meal:Hamburger):void{
+          this.itemToedit = index;
+          this.itemId = meal._id;
+
+          const singlePriceString = meal.prices.Singel.toString();
+          const doublePriceString = meal.prices.Double.toString();
+          this.hamburgerForm.patchValue({
+          name: meal.name,
+          ingredients: meal.ingredients,
+          singlePrice: singlePriceString,
+          doublePrice: doublePriceString
+          });
+          
+        }
+        //Close edit form
+        close() :void{
+          this.itemToedit = null;
+        }
+
+        //Edit meal
+        editMeal(newMeal: Meal):void{
+
+          this.operation.editMeal(newMeal as Meal, this.itemId).subscribe({
+            next: ()=>{
+              this.itemToedit = null;
+              this.formError = "";
+              this.fetchMenu();
+            },
+            error: (error)=>{
+              this.formError = error.message;
+            }
+            
+          });
+        }
 }

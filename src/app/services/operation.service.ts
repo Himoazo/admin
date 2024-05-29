@@ -5,6 +5,7 @@ import { Orders } from '../models/orders';
 import { Meal } from '../models/meal';
 import { Side } from '../models/side';
 import { Dipp } from '../models/dipp';
+import { Menu } from '../models/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,13 @@ export class OperationService {
   private url: string = "http://127.0.0.1:3000/api/";
   constructor(private http: HttpClient) { }
 
+  /**
+   * GET METHOD
+   */
+
+  getMeals(): Observable<Menu> {
+    return this.http.get<Menu>(this.url);
+  }
   //Load orders
   getOrders() :Observable<Orders[]>{
     //Get token
@@ -21,6 +29,11 @@ export class OperationService {
 
     return this.http.get<Orders[]>(this.url + "orders", {headers})
   }
+
+
+  /**
+   * POST methods 
+   */
 
   //Place order
   addOrder(order: Orders) :Observable<any>{
@@ -52,6 +65,17 @@ export class OperationService {
     const headers = {Authorization: "Bearer " + token};
 
   return this.http.post<Dipp>(this.url + "dipps", dipp, {headers});
+  }
+
+  /* PUT method */
+
+  //Edit meal
+  editMeal(meal: Meal, id: string) :Observable<Meal>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.put<Meal>(this.url + "meals/" + id, meal, {headers});
   }
 
 }
