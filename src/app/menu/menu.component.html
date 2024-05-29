@@ -177,6 +177,7 @@
             </div>
             <div>
               <button mat-flat-button color="primary">Redigera</button>
+              <button mat-stroked-button color="warn" type="button" (click)="deleteMeal(meal._id)">Ta bort</button>
               
             </div>
       </form>
@@ -238,6 +239,7 @@
           
           <div>
               <button mat-flat-button color="primary">Redigera</button>
+              <button mat-stroked-button color="warn" type="button" (click)="deleteSide(side._id)">Ta bort</button>
           </div>
         </form>
       </div>
@@ -287,7 +289,8 @@
             <input type="number" id="price" name="price" formControlName="price">
           </div>
           <div>
-            <button mat-flat-button color="primary">Lägg till</button>
+            <button mat-flat-button color="primary">Redigera</button>
+            <button mat-stroked-button color="warn" type="button" (click)="deleteDipp(dipp._id)">Ta bort</button>
           </div>
           </form>
         </div>

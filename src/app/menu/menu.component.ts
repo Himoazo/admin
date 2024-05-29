@@ -9,6 +9,7 @@ import { Dipps } from '../models/dipp';
 import {Side, Hamburger, Menu, Dipp } from '../models/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,7 @@ import {MatTabsModule} from '@angular/material/tabs';
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-    constructor(private operation: OperationService){}
+    constructor(private operation: OperationService, private _snackBar: MatSnackBar){}
     menu: Menu = { meals: [], sides: [], dipps: [] };
     ngOnInit(){
       this.fetchMenu();
@@ -74,10 +75,12 @@ export class MenuComponent {
           this.hamburgerForm.reset();
           this.formError = "";
           this.fetchMenu();
+          this.openSnackBar(`${newMeal.name} har lagts till`);
         },
         error: (error) =>{
           this.formError = "Något gick fel";
           console.log(error);
+          this.openSnackBar(` Något gick fel, ${newMeal.name} är inte tillagd`);
         }
       });
     }
@@ -122,10 +125,12 @@ export class MenuComponent {
             this.sideForm.reset();
             this.sidesError = "";
             this.fetchMenu();
+            this.openSnackBar(`${newSide.name} har lagts till`);
           },
           error: (error)=>{
             this.sidesError = error.message;
             console.log(error);
+            this.openSnackBar(` Något gick fel, ${newSide.name} är inte tillagd`);
           }
         });
       }
@@ -147,9 +152,11 @@ export class MenuComponent {
                 this.dippForm.reset();
                 this.dippsError = "";
                 this.fetchMenu();
+                this.openSnackBar(`${this.dippForm.value.name} har lagts till`);
               },
               error: (error)=>{
                 this.dippsError = error.message;
+                this.openSnackBar(` Något gick fel, ${this.dippForm.value.name} är inte tillagd`);
               }
             });
           }
@@ -191,9 +198,11 @@ export class MenuComponent {
             next: ()=>{
               this.formError = "";
               this.fetchMenu();
+              this.openSnackBar(`${newMeal.name} är nu ändrat`);
             },
             error: (error)=>{
               this.formError = error.message;
+              this.openSnackBar(`Något gick fel, det gick inte att ändra ${newMeal.name}`);
             }
             
           });
@@ -223,10 +232,12 @@ export class MenuComponent {
             next: ()=>{
               this.sidesError = "";
               this.fetchMenu();
+              this.openSnackBar(`${newSide.name} är nu ändrat`);
             },
             error: (error)=>{
               this.sidesError = error.message;
               console.log(error);
+              this.openSnackBar(`Något gick fel, det gick inte att ändra ${newSide.name}`);
             }
           });
         }
@@ -256,13 +267,66 @@ export class MenuComponent {
             next: ()=>{            
               this.dippsError = "";
               this.fetchMenu();
+              this.openSnackBar(`${this.dippForm.value.name} är nu ändrat`);
             },
             error: (error)=>{
               this.dippsError = error.message;
               console.log(error);
+              this.openSnackBar(`Något gick fel, det gick inte att ändra ${this.dippForm.value.name}`);
             }
           });
           }
-          
+        }
+
+        /* DELETE items in db */
+        deleteMeal(id: string):void{
+          this.operation.deleteMeal(id).subscribe({
+            next: ()=>{
+              this.itemToedit = null;
+              this.fetchMenu();
+              this.openSnackBar("Hamburgaren är borttagen");
+            },
+            error: (error)=>{
+              this.formError = error.message;
+              this.openSnackBar("Något gick fel, denna hamburgaren är inte borttagen");
+            }
+          });
+        }
+      
+        deleteSide(id: string):void{
+          this.operation.deleteSide(id).subscribe({
+            next: ()=>{
+              this.fetchMenu();
+              this.sidesToedit = null;
+              this.openSnackBar("Sidorätten är borttagen");
+            },
+            error: (error)=>{
+              this.sidesError = error.message;
+              console.log(error);
+              this.openSnackBar("Något gick fel, det gick inte att ta bort");
+            }
+          });
+        }
+      
+        deleteDipp(id: string):void{
+          this.operation.deleteDipp(id).subscribe({
+            next: ()=>{
+              this.fetchMenu();
+              this.dippToedit = null;
+              this.openSnackBar("Dipp är borttagen");
+            },
+            error: (error)=>{
+              this.dippsError = error.message;
+              console.log(error);
+              this.openSnackBar("Något gick fel, det gick inte att ta bort");
+            }
+          });
+        }
+
+        /* snackBar */
+        openSnackBar(message: string) {
+          this._snackBar.open(message, "X", {
+            duration: 5000
+          });
         }
 }

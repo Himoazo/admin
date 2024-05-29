@@ -5,7 +5,7 @@ import { Orders } from '../models/orders';
 import { Meal } from '../models/meal';
 import { Sides } from '../models/side';
 import { Dipps } from '../models/dipp';
-import { Dipp, Menu } from '../models/menu';
+import { Dipp, Menu , Side} from '../models/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +95,34 @@ export class OperationService {
     const headers = {Authorization: "Bearer " + token};
     
     return this.http.put<Dipp>(this.url + "dipps/" + id, dipp, {headers});
+  }
+
+  /* DELETE METHOD */
+  
+  //Delete Meal
+  deleteMeal(id: string) :Observable<Meal>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.delete<Meal>(this.url + "meals/" + id, {headers});
+  }
+
+  //Delete Side
+  deleteSide(id: string) :Observable<Side> {
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.delete<Side>(this.url + "sides/" + id, {headers})
+  }
+
+  //Delete Dipp
+  deleteDipp(id: string) :Observable<Dipp>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+    
+    return this.http.delete<Dipp>(this.url + "dipps/" + id, {headers});
   }
 }
