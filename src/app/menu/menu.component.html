@@ -38,7 +38,7 @@
           <input type="number" id="doublePrice" name="doublePrice" formControlName="doublePrice">
         </div>
         <div>
-          <button mat-flat-button color="primary">Lägg till</button>
+          <button mat-flat-button color="primary" [disabled]="!hamburgerForm.valid">Lägg till</button>
         </div>
   </form>
   </mat-expansion-panel>
@@ -76,7 +76,7 @@
       </div>
       
       <div>
-          <button mat-flat-button color="primary">Lägg till</button>
+          <button mat-flat-button color="primary" [disabled]="!sideForm.valid">Lägg till</button>
       </div>
     </form>
   </mat-expansion-panel>
@@ -107,7 +107,7 @@
   <input type="number" id="price" name="price" formControlName="price">
 </div>
 <div>
-  <button mat-flat-button color="primary">Lägg till</button>
+  <button mat-flat-button color="primary" [disabled]="!dippForm.valid">Lägg till</button>
 </div>
 </form>
   </mat-expansion-panel>

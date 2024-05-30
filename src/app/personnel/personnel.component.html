@@ -1,0 +1,38 @@
+<!-- [formGroup]="createPersonnel" -->
+<div class="personellDiv">
+<form  [formGroup]="personellForm" (ngSubmit)="createAcc()">
+    @if(formError){
+        <p class="errorSpan"> {{formError}} </p>
+    }
+    <div>
+        <label for="username">Användarnamn:</label>
+        <span class="errorSpan" *ngIf="personellForm.controls['username'].invalid && personellForm.controls['username'].touched">Fyll i Användarnamn</span>
+        <input type="text" id="name" name="username" formControlName="username">
+      </div>
+      
+      <div>
+        <label for="password">Lösenord:</label>
+        <span class="errorSpan" *ngIf="personellForm.controls['password'].invalid && personellForm.controls['password'].touched">Fyll i lösenord</span>
+        <input type="text" id="password" name="password" formControlName="password">
+      </div>
+      
+      <div>
+        <label for="email">Email:</label>
+        <span class="errorSpan" *ngIf="personellForm.controls['email'].invalid && personellForm.controls['email'].touched">Fyll i gilltigt mejl</span>
+        <input type="email" id="email" name="email" formControlName="email">
+      </div>
+      
+      <div>
+        <mat-form-field>
+        <mat-label>Roll</mat-label>
+        <mat-select  type="text" id="role" name="role" formControlName="role" required>
+        <mat-option value="admin">Administratör</mat-option>
+        <mat-option value="staff">Personal</mat-option>   
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-flat-button color="primary" [disabled]="!personellForm.valid">Skapa användare</button>
+      </div>
+</form>
+</div>
