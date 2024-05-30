@@ -38,7 +38,12 @@ export class PersonnelComponent {
         },
         error: (error)=>{
           console.log(error);
-          this.formError = error.message;
+          if(error.status === 403){
+            this.formError = "Du saknar behörigheten för att skapa en ny användare!"
+          }else{
+            this.formError = error.message;
+          }
+          
         }
       });
     }
