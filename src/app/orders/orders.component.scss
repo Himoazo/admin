@@ -1,0 +1,15 @@
+.orderTable{
+    width: 80%;
+    margin: 1% auto;
+}
+
+
+@media only screen and (max-width: 1200px){
+    .orderTable{
+        width: 99%; 
+        overflow-x: auto;
+    }
+    table {
+        width: fit-content;
+      }
+}

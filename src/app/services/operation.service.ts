@@ -98,6 +98,15 @@ export class OperationService {
     return this.http.put<Dipp>(this.url + "dipps/" + id, dipp, {headers});
   }
 
+  //Edit order status
+  editOrder(id:string, status: 'pending' | 'in progress' | 'ready' | 'completed') :Observable<any>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.put(this.url + "orders/" + id, {status}, {headers});
+  }
+
   /* DELETE METHOD */
   
   //Delete Meal
@@ -125,5 +134,14 @@ export class OperationService {
     const headers = {Authorization: "Bearer " + token};
     
     return this.http.delete<Dipp>(this.url + "dipps/" + id, {headers});
+  }
+
+  //Delete Order
+  deleteOrder(id: string) :Observable<Orders>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.delete<Orders>(this.url + "orders/" + id, {headers});
   }
 }

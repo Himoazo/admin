@@ -2,7 +2,7 @@
     <table mat-table [dataSource]="orderList" class="mat-elevation-z8">
 
    
-        <ng-container matColumnDef="Kund">
+        <ng-container matColumnDef="Kund" sticky>
           <th mat-header-cell *matHeaderCellDef> Kund </th>
           <td mat-cell *matCellDef="let order"> {{ order.customer.name }} </td>
         </ng-container>
@@ -25,9 +25,39 @@
           <td mat-cell *matCellDef="let order"> {{order.total}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="Process">
-          <th mat-header-cell *matHeaderCellDef> Summa </th>
-          <td mat-cell *matCellDef="let order"> <button mat-raised-button color="primary" >Bereda</button></td>
+        <ng-container matColumnDef="Artiklar">
+          <th mat-header-cell *matHeaderCellDef> Artiklar </th>
+          <td mat-cell *matCellDef="let order"> <button mat-stroked-button color="primary" [matMenuTriggerFor]="navMenu"> 
+            <span> <mat-icon aria-hidden="false"  fontIcon="arrow_drop_down"></mat-icon></span>
+          </button>
+            <mat-menu #navMenu="matMenu">
+              <span *ngFor="let item of order.items" mat-menu-item>
+                {{ item.itemName }} X {{ item.quantity }} St: {{ item.price }}kr
+              </span>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Hantera">
+          <th mat-header-cell *matHeaderCellDef> Hantera </th>
+          <td mat-cell *matCellDef="let order"> 
+            <mat-form-field>
+              <mat-label>{{order.status}}</mat-label>
+              <mat-select (selectionChange)="changeStatus(order._id)" [(value)]="selected">
+                
+                <mat-option *ngFor="let stat of status" value="{{stat}}">{{stat}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Radera">
+          <th mat-header-cell *matHeaderCellDef> Ta bort </th>
+          <td mat-cell *matCellDef="let order"> 
+            <button mat-fab color="warn" (click)="deleteOrder(order._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
         </ng-container>
         
       
