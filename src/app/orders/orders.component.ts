@@ -8,6 +8,7 @@ import { Orders } from '../models/orders';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-orders',
   standalone: true,
@@ -16,9 +17,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './orders.component.scss'
 })
 export class OrdersComponent {
-  orderList: Orders[] = [];
-  /* orderList: MatTableDataSource<Orders> = new MatTableDataSource<Orders>(); */
-  displayedColumns: string[] = ["Kund", "Status", "Inkommen", "Summa"]
+   orderList: Orders[] = [];
+  displayedColumns: string[] = ["Kund", "Status", "Inkommen", "Summa", "Process"]
   constructor(private operation: OperationService){}
 
   ngOnInit(){
@@ -30,7 +30,6 @@ export class OrdersComponent {
     this.operation.getOrders().subscribe({
       next: (data) => {
         this.orderList = data;
-        console.log(this.orderList);
       },
       error: (error) =>{
         console.log(error);

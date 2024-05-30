@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Orders } from '../models/orders';
 import { Meal } from '../models/meal';
 import { Sides } from '../models/side';
@@ -22,14 +22,15 @@ export class OperationService {
     return this.http.get<Menu>(this.url);
   }
   //Load orders
-  getOrders() :Observable<Orders[]>{
-    //Get token
-    const token = localStorage.getItem("token");
-    const headers = {Authorization: "Bearer " + token};
+  getOrders(): Observable<Orders[]> {
+     //Get token
+     const token = localStorage.getItem("token");
+     const headers = {Authorization: "Bearer " + token};
 
-    return this.http.get<Orders[]>(this.url + "orders", {headers})
+    return this.http.get<Orders[]>(this.url + "orders", {headers}).pipe(
+      map((response: any) => response.orders)
+    );
   }
-
 
   /**
    * POST methods 
