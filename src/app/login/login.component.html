@@ -1,22 +1,30 @@
 <div class="loginContainer">
     <div class="errorDiv"> {{errorDiv}} </div>
 <p>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [formGroup]="loginForm">
         
         <mat-label for="username">Användarnamn</mat-label>
-        <input type="text" id="username" matInput placeholder="Placeholder" [(ngModel)]="username">
-        <mat-icon matSuffix>login</mat-icon>
         
+        <input type="text" id="username" name="username" matInput placeholder="Användarnamn"  required 
+        minlength="3" formControlName="username" >
+        <mat-icon matSuffix>login</mat-icon>
+        <!-- [(ngModel)]="username" -->
+        <mat-hint class="error" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">Minst 3 tecken</mat-hint>
     </mat-form-field>
+    
 </p>
-<mat-form-field>
+<!-- [(ngModel)]="password" -->
+<mat-form-field [formGroup]="loginForm">
 <mat-label for="password">Lösenord</mat-label>
-<input type="password" id="password" matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+<input type="password" id="password" matInput [type]="hide ? 'password' : 'text'" name="password" required  minlength="3" formControlName="password">
 <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 </button>
-<mat-hint>lösenord</mat-hint>
+<mat-hint class="error" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">Minst 3 tecken</mat-hint>
 </mat-form-field>    
-<button mat-raised-button color="primary" (click)="login()">Logga in</button>
+<div>
+    <button mat-raised-button color="primary" (click)="login()">Logga in</button>
+</div>
+
 </div>
 

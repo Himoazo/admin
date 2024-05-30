@@ -14,4 +14,14 @@ export class AuthService {
   login(username: string, password: string) :Observable<SignIn>{
     return this.http.post<SignIn>(this.url, {username, password});
   }
+
+  //Show/hide protected links relative to login/out
+  loginOrOut(){
+  if(localStorage.getItem("token")){
+    return true;
+  }else {
+    return false;
+  }
+}
+
 }
