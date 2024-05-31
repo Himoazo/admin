@@ -142,7 +142,7 @@
       </div>
       <div class="mealField">
         <span class="mealTitle">Created:</span> 
-        <span class="mealData">{{ meal.created }}</span>
+        <span class="mealData">{{ meal.created | date:'short'}}</span>
       </div>
       <button mat-flat-button color="primary" (click)="edit(i, meal)">Ändra</button>
       <div *ngIf="itemToedit === i">
@@ -209,7 +209,7 @@
         </div>
         <div class="mealField">
           <span class="mealTitle">Created:</span> 
-          <span class="mealData">{{ side.created }}</span>
+          <span class="mealData">{{ side.created | date:'short'}}</span>
         </div>
         <button mat-flat-button color="primary" (click)="sideEditbtn(i, side)">Ändra</button>
       <div *ngIf="sidesToedit === i">
@@ -267,7 +267,7 @@
           </div>
           <div class="mealField">
             <span class="mealTitle">Created:</span> 
-            <span class="mealData">{{ dipp.created }}</span>
+            <span class="mealData">{{ dipp.created | date:'short'}}</span>
           </div>
           <button mat-flat-button color="primary" (click)="dippEditBtn(i, dipp)">Ändra</button>
         <div *ngIf="dippToedit === i">

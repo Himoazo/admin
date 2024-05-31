@@ -6,6 +6,7 @@ import { Meal } from '../models/meal';
 import { Sides } from '../models/side';
 import { Dipps } from '../models/dipp';
 import { Dipp, Menu , Side} from '../models/menu';
+import { Contact } from '../models/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class OperationService {
   /**
    * GET METHOD
    */
-
+  //Load meals
   getMeals(): Observable<Menu> {
     return this.http.get<Menu>(this.url);
   }
@@ -29,6 +30,17 @@ export class OperationService {
 
     return this.http.get<Orders[]>(this.url + "orders", {headers}).pipe(
       map((response: any) => response.orders)
+    );
+  }
+
+  //Get contact messages
+  getContact(): Observable<Contact[]> {
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.get<Contact[]>(this.url + "contact", {headers}).pipe(
+      map((response: any) => response.messages)
     );
   }
 
@@ -143,5 +155,14 @@ export class OperationService {
     const headers = {Authorization: "Bearer " + token};
 
     return this.http.delete<Orders>(this.url + "orders/" + id, {headers});
+  }
+
+  //Delete contact message
+  deleteContact(id: string) :Observable<Contact>{
+    //Get token
+    const token = localStorage.getItem("token");
+    const headers = {Authorization: "Bearer " + token};
+
+    return this.http.delete<Contact>(this.url + "contact/" + id, {headers});
   }
 }

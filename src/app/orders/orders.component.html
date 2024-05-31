@@ -16,7 +16,7 @@
       
         <ng-container matColumnDef="Inkommen">
           <th mat-header-cell *matHeaderCellDef> Inkommen </th>
-          <td mat-cell *matCellDef="let order"> {{order.createdAt}} </td>
+          <td mat-cell *matCellDef="let order"> {{order.createdAt | date:'short'}} </td>
         </ng-container>
       
        

@@ -5,6 +5,7 @@ import { authGuard } from './services/auth.guard';
 import { MenuComponent } from './menu/menu.component';
 import { OrdersComponent } from './orders/orders.component';
 import { PersonnelComponent } from './personnel/personnel.component';
+import { ContactComponent } from './contact/contact.component';
 
 export const routes: Routes = [
     {path: "", component: LoginComponent },
@@ -12,7 +13,8 @@ export const routes: Routes = [
     children: [
         { path: "menu", component: MenuComponent, canActivate: [authGuard] },
         {path: "orders", component: OrdersComponent, canActivate: [authGuard]},
-        {path: "personnel", component: PersonnelComponent, canActivate: [authGuard]}
+        {path: "personnel", component: PersonnelComponent, canActivate: [authGuard]},
+        {path: "contact", component: ContactComponent, canActivate: [authGuard]}
     ]},
     {path: "login", component: LoginComponent},
     {path: "**", redirectTo: ""}

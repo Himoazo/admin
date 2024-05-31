@@ -1,0 +1,31 @@
+<h2>Kundkontakts hantering</h2>
+
+<div *ngFor="let contact of contactMsgs" class="contactTableContainer">
+    <table class="contactTable">
+      <thead>
+      </thead>
+      <tbody>
+        <tr *ngIf="contact.created">
+            <td class="headerColumn">Kom:</td>
+            <td class="valueColumn">{{ contact.created | date:'short' }}</td>
+        </tr>
+        <tr>
+          <td class="headerColumn">Kundnamn:</td>
+          <td class="valueColumn">{{ contact.customername }}</td>
+        </tr>
+        <tr>
+          <td class="headerColumn">Email</td>
+          <td class="valueColumn">{{ contact.email }}</td>
+        </tr>
+        <tr>
+          <td class="headerColumn">Meddelande:</td>
+          <td class="valueColumn">{{ contact.message }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="buttonColumn">
+              <button mat-stroked-button color="warn" (click)="deleteContact(contact._id)" class="deleteButton">Delete</button>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>

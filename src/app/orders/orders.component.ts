@@ -31,7 +31,7 @@ export class OrdersComponent {
     this.getOrders();
   }
 
-  
+  //Load orders
   getOrders() :void{
     this.operation.getOrders().subscribe({
       next: (data) => {

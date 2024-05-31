@@ -1,0 +1,45 @@
+h2{
+    text-align: center;
+}
+
+.contactTableContainer {
+    margin: 1% auto;
+    width: 30vw;
+    min-height: 50vh;
+  }
+  
+  .contactTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .headerColumn {
+    font-weight: bold;
+
+    background-color: #f9f9f9;
+    width: 15%;
+    white-space:nowrap;
+  }
+  
+  .valueColumn {
+    background-color: #ffffff;
+  }
+
+
+  @media only screen and (max-width: 850px) {
+    .contactTableContainer {
+        
+        width: 80%;
+      }
+      
+  }
