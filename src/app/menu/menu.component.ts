@@ -285,7 +285,8 @@ export class MenuComponent {
 
         /* DELETE items in db */
         deleteMeal(id: string):void{
-          this.operation.deleteMeal(id).subscribe({
+          if (window.confirm('Är du säker att du vill ta port denna rätt?')){
+            this.operation.deleteMeal(id).subscribe({
             next: ()=>{
               this.itemToedit = null;
               this.fetchMenu();
@@ -296,10 +297,13 @@ export class MenuComponent {
               this.openSnackBar("Något gick fel, denna hamburgaren är inte borttagen");
             }
           });
+          }
+          
         }
       
         deleteSide(id: string):void{
-          this.operation.deleteSide(id).subscribe({
+          if (window.confirm('Är du säker att du vill ta port denna sidorätt?')){
+            this.operation.deleteSide(id).subscribe({
             next: ()=>{
               this.fetchMenu();
               this.sidesToedit = null;
@@ -311,10 +315,12 @@ export class MenuComponent {
               this.openSnackBar("Något gick fel, det gick inte att ta bort");
             }
           });
+          }
         }
       
         deleteDipp(id: string):void{
-          this.operation.deleteDipp(id).subscribe({
+          if (window.confirm('Är du säker att du vill ta port denna dipp?')){
+            this.operation.deleteDipp(id).subscribe({
             next: ()=>{
               this.fetchMenu();
               this.dippToedit = null;
@@ -326,6 +332,7 @@ export class MenuComponent {
               this.openSnackBar("Något gick fel, det gick inte att ta bort");
             }
           });
+          }
         }
 
         /* snackBar */

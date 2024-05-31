@@ -27,7 +27,7 @@ export class PersonnelComponent {
     role: new FormControl("", [Validators.required])
     });
 
-    
+    //Create new account
     formError: string = "";
     createAcc():void{
       const newAccForm = this.personellForm.value;
@@ -48,6 +48,33 @@ export class PersonnelComponent {
       });
     }
 
+    ngOnInit(){
+      this.fetchAccoutns(); 
+    }
+
+    //Load all accounts
+    userList: User[] = []
+    fetchAccoutns():void{
+      this.AuthService.getAccounts().subscribe(data =>{
+        this.userList = data;
+      });
+    }
+
+    //Delete account
+    deleteAccount(id: any):void{
+      if (window.confirm('Borttagning av användare är permanent och går inte att ångra, vill du fortsätta?')){
+        this.AuthService.deleteAccounts(id).subscribe({
+        next: ()=>{
+          this.openSnackBar("Användarkontot har tagits bort");
+          this.fetchAccoutns(); 
+        },
+        error: (error)=>{
+          console.log(error);
+          this.openSnackBar("Det gick inte att ta bort användare");
+        }
+      });
+      }
+    }
     /* snackBar */
     openSnackBar(message: string) {
       this._snackBar.open(message, "X", {

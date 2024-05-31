@@ -66,7 +66,8 @@ export class OrdersComponent {
 
   //Delete Order
   deleteOrder(id: string) :void{
-    this.operation.deleteOrder(id).subscribe({
+    if (window.confirm('Är du säker att du vill ta port denna order?')){
+      this.operation.deleteOrder(id).subscribe({
       next: ()=>{
         this.getOrders();
         this.openSnackBar("Order har raderats");
@@ -76,6 +77,7 @@ export class OrdersComponent {
         this.openSnackBar("Fel har inträffats");
       }
     });
+    }
   }
 
    /* snackBar */

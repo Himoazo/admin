@@ -1,4 +1,4 @@
-<!-- [formGroup]="createPersonnel" -->
+<h2>Skapa medarbetarkonto</h2>
 <div class="personellDiv">
 <form  [formGroup]="personellForm" (ngSubmit)="createAcc()">
     @if(formError){
@@ -35,4 +35,16 @@
         <button mat-flat-button color="primary" [disabled]="!personellForm.valid">Skapa användare</button>
       </div>
 </form>
+</div>
+
+<h3> Personallistan </h3>
+<div class="userList">
+  <ul *ngFor="let user of userList" >
+  <li> <strong>Användarnamn:</strong>  {{user.username}} <br>
+    <strong>E-mail:</strong> {{user.email}} <br>
+    <strong>Roll:</strong> {{user.role}} <br><br>
+    <button mat-flat-button color="warn" (click)="deleteAccount(user._id)">Ta bort</button>
+  </li> 
+    
+</ul>
 </div>

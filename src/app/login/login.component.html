@@ -8,12 +8,11 @@
         <input type="text" id="username" name="username" matInput placeholder="Användarnamn"  required 
         minlength="3" formControlName="username" >
         <mat-icon matSuffix>login</mat-icon>
-        <!-- [(ngModel)]="username" -->
         <mat-hint class="error" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">Minst 3 tecken</mat-hint>
     </mat-form-field>
     
 </p>
-<!-- [(ngModel)]="password" -->
+
 <mat-form-field [formGroup]="loginForm">
 <mat-label for="password">Lösenord</mat-label>
 <input type="password" id="password" matInput [type]="hide ? 'password' : 'text'" name="password" required  minlength="3" formControlName="password">
@@ -23,7 +22,7 @@
 <mat-hint class="error" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">Minst 3 tecken</mat-hint>
 </mat-form-field>    
 <div>
-    <button mat-raised-button color="primary" (click)="login()">Logga in</button>
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">Logga in</button>
 </div>
 
 </div>

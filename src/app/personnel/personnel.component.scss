@@ -1,3 +1,9 @@
+h2, h3{
+    margin: 2% auto;
+    text-align: center;
+  }
+  
+//Create account form  
 .personellDiv{
     width: fit-content;
     margin: 0 auto;
@@ -10,8 +16,30 @@ form{
 
 input, label {
     display:block;
+    margin: 1% auto;
 }
 
 .errorSpan{
     color: red;
 }
+
+//user list
+/* Assuming your component's CSS file */
+.userList{
+    width: fit-content;
+    margin: 1% auto;
+}
+.userList ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .userList ul li {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    /* Add other styling properties as needed */
+  }
+  
