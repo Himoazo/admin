@@ -8,7 +8,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class AuthService {
-  private url: string = "http://127.0.0.1:3000/api/auth/";
+  private url: string = "https://backend-project-production-f507.up.railway.app//api/auth/";
   constructor(private http: HttpClient) { }
 
   //logging in

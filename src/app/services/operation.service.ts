@@ -12,7 +12,7 @@ import { Contact } from '../models/contact';
   providedIn: 'root'
 })
 export class OperationService {
-  private url: string = "http://127.0.0.1:3000/api/";
+  private url: string = "https://backend-project-production-f507.up.railway.app/";
   constructor(private http: HttpClient) { }
 
   /**
