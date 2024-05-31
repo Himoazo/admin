@@ -1,11 +1,28 @@
 
 <button mat-button [matMenuTriggerFor]="menu"><mat-icon>dashboard</mat-icon> Dashboard</button>
 <mat-menu #menu="matMenu">
-    <button routerLink="/admin/menu" mat-menu-item>Mat Meny</button>
-    <button routerLink="/admin/orders" mat-menu-item>Ordrar</button>
-    <button routerLink="/admin/personnel" mat-menu-item>Personnel</button>
-    <button routerLink="/admin/contact" mat-menu-item>Kontakt</button>
+    <button (click)="hideContent()" routerLink="/admin/menu" mat-menu-item>Mat Meny</button>
+    <button (click)="hideContent()" routerLink="/admin/orders" mat-menu-item>Ordrar</button>
+    <button (click)="hideContent()" routerLink="/admin/contact" mat-menu-item>Kontakt</button>
+    <button (click)="hideContent()" routerLink="/admin/personnel" mat-menu-item>Personnel</button>
   </mat-menu>
 
+
+  <div *ngIf="onAndOff" class="admin">
+    <h2>Dashboard</h2>
+    <p>Välkommen till restaurangens administrations applikationen. </p>
+    <p>Till vänster finner ni ”Dashboard” knappen, klicka på den för att bläddra genom applikationens undersidor.
+      Här, kan du som personal, hantera ordar, justera rättmenyn, läsa kundernas meddelanden och om du har rätt 
+      behörighet kan du också hantera personalens konton. </p>
+      
+      <p>Ha en bra arbetsdag. </p>
+
+   
+
+  </div>
+
+
 <router-outlet />  
+
+
 

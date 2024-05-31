@@ -41,6 +41,4 @@ export class HeaderComponent {
         localStorage.removeItem("token");
         window.location.href = "/";
     }
-    
-
 }

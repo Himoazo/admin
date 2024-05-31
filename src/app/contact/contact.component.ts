@@ -26,7 +26,6 @@ export class ContactComponent {
     this.operation.getContact().subscribe({
       next: (data) => {
         this.contactMsgs = data;
-        console.log(data);
       },
       error: (error) =>{
         console.log(error);
