@@ -16,9 +16,7 @@
             </span>
             <span class="menu-text">Stäng</span>
         </button>
-        <ul>
-            <li><a routerLink="/" routerLinkActive="active">Startsida</a></li>
-            
+        <ul>            
             <li *ngIf="loggedIn()"><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
             <li *ngIf="!loggedIn()"><a routerLink="/login" routerLinkActive="active">login</a></li>
             <li *ngIf="loggedIn()"> <a (click)="logOut()"> Logga ut</a> </li>

@@ -202,6 +202,7 @@ export class MenuComponent {
           this.operation.editMeal(newMeal as Meal, this.itemId).subscribe({
             next: ()=>{
               this.formError = "";
+              this.hamburgerForm.reset();
               this.fetchMenu();
               this.openSnackBar(`${newMeal.name} är nu ändrat`);
             },

@@ -55,8 +55,17 @@ export class PersonnelComponent {
     //Load all accounts
     userList: User[] = []
     fetchAccoutns():void{
-      this.AuthService.getAccounts().subscribe(data =>{
-        this.userList = data;
+      this.AuthService.getAccounts().subscribe({
+        next:(data) =>{
+          this.userList = data;
+        },
+        error:(error)=>{
+          if(error.status === 403){
+            this.formError = "Du saknar behörigheten för att Använda denna sektion!"
+          }else{
+            this.formError = error.message;
+          }
+        }
       });
     }
 
