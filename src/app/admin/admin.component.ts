@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OperationService } from '../services/operation.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
@@ -16,15 +15,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
-  constructor(private operation: OperationService){}
+  constructor(){}
 
- onAndOff: boolean = true;
- ngOninit(){
-  this.onAndOff = true;
- }
-
- hideContent():void{
-  this.onAndOff = false;
- }
-  
 }
