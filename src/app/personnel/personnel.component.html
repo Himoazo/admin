@@ -7,7 +7,7 @@
     <div>
         <label for="username">Användarnamn:</label>
         <span class="errorSpan" *ngIf="personellForm.controls['username'].invalid && personellForm.controls['username'].touched">Fyll i Användarnamn</span>
-        <input type="text" id="name" name="username" formControlName="username">
+        <input type="text" id="name" name="username" formControlName="username" aria-label="Användarnamn username">
       </div>
       
       <div>
